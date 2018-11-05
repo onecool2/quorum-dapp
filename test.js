@@ -1,0 +1,10 @@
+const Web3 = require ('web3-quorum');
+const web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:22000"));
+account = "0xed9d02e382b34818e88b88a309c7fe71e65f419d";
+var str = web3.toHex("Hello world");
+console.log(str);
+var msg = web3.eth.sign(account, str);
+console.log(msg);
+var address = web3.personal.ecRecover(str, msg);
+console.log(address);
+console.log(account);

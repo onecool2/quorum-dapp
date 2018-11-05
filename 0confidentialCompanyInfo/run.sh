@@ -1,0 +1,1 @@
+node ./0confidentialCompanyInfo/deployConfidentialCompanyInfo.js companyN 100 foundingT founderN companyAd 1000000 info QfeDAys9MPDs2XHExtc84jKGHxZg/aj52DTh0vtA3Xc=

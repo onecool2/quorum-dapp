@@ -1,0 +1,36 @@
+var arguments = process.argv.splice(2);
+var companyName = String(arguments[0]);
+var companyAddress = String(arguments[1]);
+var quorumPublicKey = String(arguments[2]);
+var inf = String(arguments[3]);
+
+var util = require("util")
+const Web3 =  require('web3');
+const web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:22000"));
+var companyInfoABI = [{"constant":true,"inputs":[],"name":"mapSize","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"PublicKey","type":"address"},{"name":"companyName","type":"string"},{"name":"foundingTime","type":"string"}],"name":"newCompany","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"owner","outputs":[{"name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"","type":"uint256"}],"name":"mapIndex","outputs":[{"name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"founderN","type":"string"},{"name":"companyAd","type":"string"},{"name":"quorumPublicKey","type":"string"},{"name":"info","type":"string"}],"name":"modifyCompany","outputs":[{"name":"","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[{"name":"","type":"uint256"}],"name":"mapCompany","outputs":[{"name":"ethereumPublicKey","type":"address"},{"name":"companyName","type":"string"},{"name":"foundingTime","type":"string"},{"name":"founderName","type":"string"},{"name":"companyAddress","type":"string"},{"name":"quorumPublicKey","type":"string"},{"name":"info","type":"string"}],"payable":false,"stateMutability":"view","type":"function"},{"inputs":[],"payable":false,"stateMutability":"nonpayable","type":"constructor"}];
+
+const Contract = web3.eth.contract(companyInfoABI);
+
+/***********************************************************************/
+contractAddress = "0xe97289f057b9d88e24d74cf4dc096f9f5ef490bd";
+/***********************************************************************/
+console.log('unlocking Coinbase account');
+accountOne = "0xed9d02e382b34818e88b88a309c7fe71e65f419d";
+account1 = "0x7f5eae0fd3a3c1fa19f4cd7ec9e8f65b4e3a5dc9";
+account2 = "0xc2f70fc643452e0ab26470e342734c4f38d13b11";
+account3 = "0x28385794c1b151a5ad64b1348efd01e76983de95";
+const password = "";
+try {
+        web3.personal.unlockAccount(account1, password, 100);
+} catch(e) {
+        console.log(e);
+        return;
+}
+
+CallContract = Contract.at(contractAddress);
+CallContract.modifyCompany.sendTransaction(companyName, companyAddress, quorumPublicKey, inf, {from:account1, gas:3000000}, function(error, result){
+	console.log('result:' +result);
+	console.log('error:' + error);
+        //CallContract.get.call(function(error, result){
+        //	console.log('after change:' + result);
+});
